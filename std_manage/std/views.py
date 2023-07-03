@@ -31,11 +31,14 @@ def insertuser(request):
 def  updateuser(request):
     data = json.loads(request.body)
     r = data["uid"]
+    uname = data["uname"]
+
     print("value of r",r)
     user = User.objects.all()[r]  
     print("username",user.uname) 
-    user.uname = "rajesh"
-    print("upadted user name", user.uname)
+    user.uname = uname
+    user.contact = data["ucontact"]
+    user.email = data["uemail"]
     user.save();
     return HttpResponse("record has been updated")
     
@@ -52,6 +55,6 @@ def deleteuser(request):
 def numberOfUser(request):
     user = User.objects.all() 
     print("upadted user name", user)
-    a=5
+    a = len(user)
     return HttpResponse(a) 
 
